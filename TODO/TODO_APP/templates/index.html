@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{{ redirect_to_login_immediately }}
+
+{% include "navbar.html" %}
+{% if msg %}
+<div class="alert alert-warning alert-dismissible fade show mb-0" role="alert">
+  <strong>Alert!</strong> {{msg}}
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+{% endif %}
+{% if user.is_authenticated %}
+      <div class="alert alert-success alert-dismissible fade show m-0 mx-xxl-auto" role="alert" >
+        <strong>Successfully Login : -</strong> {{user}}<br>
+        <strong>Login Time : -</strong> {{log_time}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endif %}
+
+
+<section style="background-color: #eee;" class="pt-3">
+  <div class="container vh-100" >
+
+    <div class="container-fluid mb-3">
+      <form class="d-flex" role="search" method="POST">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Add Task" aria-label="Search" name="task" required>
+        <button class="btn btn-outline-success" type="submit">Add Task</button>
+      </form>
+  </div>
+  
+  <table class="table border border-dark">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">No.</th>
+        <th scope="col">Task Name</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="">
+      {% for task in lst %}
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{task.todo_name}}</td>
+        <td class="d-flex">
+          <a class="btn btn-primary" href="{% url 'edit' task.id %}" >Edit</a>
+          
+          <a class="btn btn-warning" href="{% url 'delete' task.id %}">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</section>
+{% endblock %}

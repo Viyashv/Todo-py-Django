@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% block content %}
+
+
+
+
+<div class="d-flex">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+            <a class="btn btn-danger" href="{% url 'logout' %}">Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item mx-1">
+          <a class="btn btn-primary" aria-current="page" href="{% url 'login' %}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-warning" href="{% url 'signup' %}">Singup</a>
+        </li>
+        {% endif %}
+      </ul>
+</div>
+
+
+
+{% endblock %}

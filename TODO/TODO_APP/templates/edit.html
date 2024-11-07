@@ -1,0 +1,67 @@
+{% extends 'base.html' %} {% block content %}
+
+{% include "navbar.html" %} 
+<section style="background-color: #eee;" class="pt-3">
+  <div class="container vh-100">
+    <div class="table-responsive-sm ">
+      <table class="table table-sm" style="border: 2px solid;">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Task</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+                <form class="d-flex" role="search" method="POST">
+                {% csrf_token %}
+                <input class="form-control me-2" type="search" placeholder="Add Task" aria-label="Search" name="newtask" required>
+                <button class="btn btn-outline-success" type="submit">Add</button>
+              </form>
+            </td>
+            <td class="d-flex" style="justify-content: space-evenly;">
+              {% if change.status %}
+              <a class="btn btn-danger" href="{% url 'cancel' change.id %}">Cancel</a>
+              {% else %}
+              <a class="btn btn-primary" href="{% url 'edit' change.id %}">Edit</a>
+              {% endif %}
+              <a class="btn btn-warning" href="{% url 'delete' change.id %}">Delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endblock %}
+<!-- 
+<section class="vh-100">
+  <div class="vh-100 container">
+    <table class="table" style="border: 2px solid black;">
+      <tbody class="">
+        <tr>
+          <td>
+            {% if change.status %}
+            <form method="POST" class="d-flex">
+              {% csrf_token %}
+              <input type="text" name="newtask" placeholder="Enter task" required>
+                <button type="submit" class="btn btn-success">Add</button>
+            </form>
+          </td>
+          {% else %}
+          <td>{{change.todo_name}}</td>
+          {% endif %}
+          <td>
+            {% if change.status %}
+            <a class="btn btn-danger" href="{% url 'cancel' change.id %}">Cancel</a>
+            {% else %}
+            <a class="btn btn-primary" href="{% url 'edit' change.id %}">Edit</a>
+            {% endif %}
+            <a class="btn btn-warning" href="{% url 'delete' change.id %}">Delete</a>
+          </td>
+        </tr>
+      </tbody>
+  </table>
+  </div>
+</section> -->
